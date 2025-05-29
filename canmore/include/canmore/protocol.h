@@ -169,17 +169,17 @@ extern "C" {
  * instead. Each utility frame has a channel ID, which is assigned to the protocols defined below
  *
  *
- * Thruster Commands Channel
+ * Motor Commands Channel
  * -------------------------
- * Channel 0 is allocated for DShot commands to ESC boards (allows low latency command publishing)
- *   Each packet is 8 bytes, with 2 bytes per thruster command. Each thruster command is in big endian, with the
- *   lowest thruster first:
+ * Channel 0 is allocated for motor commands to ESC boards (allows low latency command publishing)
+ *   Each packet is 4 bytes, with 2 bytes per thruster command. Each motor command is in big endian, with the
+ *   lowest motor first:
  *
- * Thruster Command Frame Format (T0 = Thruster idx 0 for that board):
- *     +--------+--------+--------+--------+--------+--------+--------+--------+
- *     | T0 MSB | T0 LSB | T1 MSB | T1 LSB | T2 MSB | T2 LSB | T3 MSB | T3 LSB |
- *     +--------+--------+--------+--------+--------+--------+--------+--------+
- * Idx:    0        1        2        3        4        5        6        7
+ * Motor Command Frame Format (T0 = Motor idx 0 for that board):
+ *     +--------+--------+--------+--------+
+ *     | M0 MSB | M0 LSB | M1 MSB | M1 LSB |
+ *     +--------+--------+--------+--------+
+ * Idx:    0        1        2        3
  *
  *
  * Remote TTY Interface
@@ -407,8 +407,7 @@ typedef union __attribute__((__packed__)) canmore_id {
 #define CANMORE_CHAN_CAMERA_FEED 12
 #define CANMORE_CHAN_REMOTE_TTY 13
 #define CANMORE_CHAN_CONTROL_INTERFACE 14
-#define CANMORE_CONTROL_INTERFACE_BOOTLOADER_REQUEST                                                                   \
-    { 0xB0, 0x07, 0x10, 0xAD }
+#define CANMORE_CONTROL_INTERFACE_BOOTLOADER_REQUEST { 0xB0, 0x07, 0x10, 0xAD }
 
 // Control Interface Mode Values (for both Heartbeat and Control Interface)
 #define CANMORE_CONTROL_INTERFACE_MODE_NONE 0b000u
