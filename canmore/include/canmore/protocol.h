@@ -171,15 +171,15 @@ extern "C" {
  *
  * Motor Commands Channel
  * -------------------------
- * Channel 0 is allocated for motor commands to ESC boards (allows low latency command publishing)
- *   Each packet is 4 bytes, with 2 bytes per thruster command. Each motor command is in big endian, with the
+ * Channel 0 is allocated for motor commands to ESC board (allows low latency command publishing)
+ *   Each packet is 8 bytes, with 4 bytes per motor command. Each motor command is in big endian, with the
  *   lowest motor first:
  *
- * Motor Command Frame Format (T0 = Motor idx 0 for that board):
- *     +--------+--------+--------+--------+
- *     | M0 MSB | M0 LSB | M1 MSB | M1 LSB |
- *     +--------+--------+--------+--------+
- * Idx:    0        1        2        3
+ * Motor Command Frame Format (M0 = Motor idx 0 for that board):
+ *     +--------+--------+--------+--------+--------+--------+--------+--------+
+ *     | M0 MSB |        |        | M0 LSB | M1 MSB |        |        | M1 LSB |
+ *     +--------+--------+--------+--------+--------+--------+--------+--------+
+ * Idx:    0        1        2        3        4         5       6        7
  *
  *
  * Remote TTY Interface
@@ -403,7 +403,7 @@ typedef union __attribute__((__packed__)) canmore_id {
 #define CANMORE_MSG_SUBTYPE_XRCE_DDS 0
 
 // Utility Channel Assignments
-#define CANMORE_CHAN_THRUSTER_CMDS 0
+#define CANMORE_CHAN_MOTOR_CMDS 0
 #define CANMORE_CHAN_CAMERA_FEED 12
 #define CANMORE_CHAN_REMOTE_TTY 13
 #define CANMORE_CHAN_CONTROL_INTERFACE 14
